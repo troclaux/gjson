@@ -1522,6 +1522,8 @@ func queryMatches(rp *arrayPathResult, value Result) bool {
 			return rpv == "true"
 		case "!=":
 			return rpv != "true"
+		case "<=":
+			return rpv == "true"
 		case ">":
 			return rpv == "false"
 		case ">=":
@@ -1537,6 +1539,8 @@ func queryMatches(rp *arrayPathResult, value Result) bool {
 			return rpv == "true"
 		case "<=":
 			return true
+		case ">=":
+			return rpv == "false"
 		}
 	}
 	return false

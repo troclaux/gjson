@@ -2833,3 +2833,13 @@ func TestPathRev(t *testing.T) {
 	// Does not matter the result. Must not panic.
 	Get(doc, "b:").Path(doc)
 }
+
+func TestQueryBoolCompare(t *testing.T) {
+	json := `[{"ok":true},{"ok":false}]`
+	assert(t, Get(json, `#(ok<=true)#`).Raw == `[{"ok":true},{"ok":false}]`)
+	assert(t, Get(json, `#(ok<=false)#`).Raw == `[{"ok":false}]`)
+	assert(t, Get(json, `#(ok>=true)#`).Raw == `[{"ok":true}]`)
+	assert(t, Get(json, `#(ok>=false)#`).Raw == `[{"ok":true},{"ok":false}]`)
+	assert(t, Get(json, `#(ok<true)#`).Raw == `[{"ok":false}]`)
+	assert(t, Get(json, `#(ok>false)#`).Raw == `[{"ok":true}]`)
+}
